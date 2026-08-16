@@ -37,8 +37,8 @@ if st.button("🚀 블로그 글 생성하기", type="primary"):
             try:
                 # 제미나이 API 설정
                 genai.configure(api_key=api_key)
-                # 에러가 없는 안정적인 프로(Pro) 모델 사용
-                model = genai.GenerativeModel('gemini-1.5-pro')
+                # 구글의 최신 안정화 모델인 2.5 버전으로 교체!
+                model = genai.GenerativeModel('gemini-2.5-flash')
                 
                 # 업로드된 이미지를 AI가 읽을 수 있게 변환
                 image = Image.open(uploaded_file)
