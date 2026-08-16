@@ -38,4 +38,3 @@ if st.button("🚀 블로그 글 생성하기", type="primary"):
                 # 제미나이 API 설정
                 genai.configure(api_key=api_key)
                 # 에러가 없는 안정적인 프로(Pro) 모델 사용
-                model = genai.
