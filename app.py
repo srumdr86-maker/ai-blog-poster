@@ -38,3 +38,35 @@ if st.button("🚀 블로그 글 생성하기", type="primary"):
                 # 제미나이 API 설정
                 genai.configure(api_key=api_key)
                 # 에러가 없는 안정적인 프로(Pro) 모델 사용
+                model = genai.GenerativeModel('gemini-1.5-pro')
+                
+                # 업로드된 이미지를 AI가 읽을 수 있게 변환
+                image = Image.open(uploaded_file)
+                
+                # AI에게 내릴 명령(프롬프트) - 커머스(공동구매) 최적화 버전
+                prompt = f"""
+                당신은 프로페셔널한 {platform} 인플루언서이자 커머스(공동구매) 판매자입니다.
+                첨부된 사진을 자세히 분석하고, 다음 조건에 맞춰 포스팅 글을 작성해 주세요.
+                
+                - 플랫폼: {platform} (플랫폼 성격에 맞게 해시태그나 이모지 적극 활용)
+                - 글투: {tone}
+                - 포함할 키워드: {keywords if keywords else '사진에 보이는 특징들'}
+                
+                [글 작성 구조]
+                1. 서론: 사진과 관련된 일상적인 이야기나 공감대로 자연스럽게 시선 끌기
+                2. 본론: 사진 속 상황(또는 제품)의 장점과 특징을 매력적으로 어필하기
+                3. 결론 (커머스 유도): "현재 한정 수량 공동구매 진행 중!", "프로필 링크에서 구매 가능" 등 자연스러운 판매 유도 멘트와 콜투액션(CTA) 반드시 포함
+                
+                읽는 사람이 거부감 없이 자연스럽게 구매하고 싶어지도록 매력적으로 써주세요.
+                """
+                
+                # AI에게 사진과 명령 전달 후 결과 받기
+                response = model.generate_content([prompt, image])
+                
+                # 결과 출력
+                st.success("✨ 포스팅 초안이 완성되었습니다!")
+                st.write("---")
+                st.markdown(response.text)
+                
+            except Exception as e:
+                st.error(f"오류가 발생했습니다. API 키가 정확한지 확인해 주세요. (에러 내용: {e})")
