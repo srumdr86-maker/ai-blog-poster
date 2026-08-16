@@ -26,4 +26,16 @@ uploaded_file = st.file_uploader("오늘 찍은 사진을 올려주세요 (JPG, 
 # 키워드 입력 창
 keywords = st.text_input("꼭 들어갔으면 하는 키워드 (선택사항)", placeholder="예: 다낭여행, 가족여행, 다낭디오션에스테이츠")
 
-# 4. 실행 버튼 및
+# 4. 실행 버튼 및 AI 동작 로직
+if st.button("🚀 블로그 글 생성하기", type="primary"):
+    if not api_key:
+        st.error("👈 왼쪽 사이드바에 Google Gemini API 키를 입력해 주세요!")
+    elif not uploaded_file:
+        st.error("사진을 먼저 업로드해 주세요!")
+    else:
+        with st.spinner("AI가 사진을 분석하고 글을 작성 중입니다... 잠시만 기다려주세요 ⏳"):
+            try:
+                # 제미나이 API 설정
+                genai.configure(api_key=api_key)
+                # 에러가 없는 안정적인 프로(Pro) 모델 사용
+                model = genai.
